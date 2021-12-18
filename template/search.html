@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+	{% block content %}
+{% block title %}<title>“{{soz}}”-bo`yicha qidiruv</title>{% endblock %}
+	<div class="container wrapper">
+		<div class="longrek"></div>
+		<div class="clearfix"></div>
+		
+		<ol class="breadcrumb">
+			<li><a href="{% url 'home' %}">BOSH SAHIFA</a></li>
+		</ol>
+		<div class="row">
+			<div class="col-md-8 col-xs-12">
+				{% if len == 0 %}
+				<div class="cat_title">“{{soz}}” - jumlasi bo`yicha hech qanday malumot topilmadi.</div>
+				{% else %}
+				<div class="cat_title">“{{soz}}” - jumlasi bo`yicha {{len}} ta ma`ulumot topildi.</div>
+				{% endif %}
+				<div class="search_box">
+					<form action="{% url 'search' %}">
+						<div class="input-group">
+							<input type="text" name="q" placeholder="Qidiruv">
+							<button class="btn submit"><i class="fa fa-search"></i></button>
+						</div>
+					</form>
+				</div>
+				<div class="news_box">
+					{% for i in page_obj %}
+					<div class="cat_news">
+						<div class="cat_img"><img src="{{i.image_1.url}}" alt=""></div>
+						<a href="{% url 'news' pk=i.id %}">{{i.title}}</a>
+						<p>{{i.text | slice:250}}</p>
+						<span class="date">{{i.time | date:'Y-m-d H:i'}}</span>
+						<span class="news_type"><i class="fa fa-pencil"></i> {{i.ctg}}</span>
+					</div>
+					{% endfor %}
+
+				</div>
+			</div>
+			<div class="col-md-4 col-xs-12">
+				<div class="head_title">Dolzarb yangilikar</div>
+				<div id="listnews" class="carousel slide listnews" data-ride="carousel">
+					<div class="news_box">
+						<div class="carousel-inner" role="listbox">
+							<div class="item active">
+								<ul class="list_news">
+									{% for i in actual %}
+									{% if forloop.counter < 5 %}
+									<li>
+										<div class="list_img"><img src="{{i.image_1.url}}" alt=""></div>
+										<a href="{% url 'news' pk=i.id %}">{{i.title}}</a>
+										<span class="date">{{i.time | date:'Y-m-d H:i'}}</span>
+										<span class="news_type"><i class="fa fa-pencil"></i> {{i.ctg}}</span>
+									</li>
+									{% endif %}
+									{% endfor %}
+								</ul>
+							</div>
+							<div class="item">
+								<ul class="list_news">
+									{% for i in actual1 %}
+									{% if forloop.counter < 5 %}
+									<li>
+										<div class="list_img"><img src="{{i.image_1.url}}" alt=""></div>
+										<a href="{% url 'news' pk=i.id %}">{{i.title}}</a>
+										<span class="date">{{i.time | date:'Y-m-d H:i'}}</span>
+										<span class="news_type"><i class="fa fa-pencil"></i> {{i.ctg}}</span>
+									</li>
+									{% endif %}
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="indi_box">
+						<ol class="carousel-indicators">
+							<li data-target="#listnews" data-slide-to="0" class="active"></li>
+							<li data-target="#listnews" data-slide-to="1"></li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

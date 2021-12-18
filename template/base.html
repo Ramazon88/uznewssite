@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	{% if all_news %}
+	<title>SO`NGI YANGILIKLAR</title>
+	{% endif %}
+	{% block title %} {% endblock %}
+	<link rel="stylesheet" href="{%static 'css/bootstrap.min.css' %}">
+	<link rel = "icon" href =
+"{% static 'img/logo.png' %}"
+        type = "image/x-icon">
+	<link rel="stylesheet" href="{%static 'css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{%static 'css/style.css' %}">
+	<link rel="stylesheet" href="{%static 'css/media.css' %}">
+</head>
+<body style="font-family: 'Ubuntu-R';
+    {% if rek %}
+	background-color: #f1f1f1;
+	background-image:url({{rek.image.url}});
+	background-repeat:no-repeat;
+	background-size:cover;
+	{% else %}
+	background-color: #f1f1f1;
+	background: #f1f1f1 url(../static/img/bigrek.jpg)  50% 136px no-repeat;{% endif %}">
+	<div class="topheader">
+		<div class="container">
+			<ul class="menu">
+				<li><a href="#footerrr">Biz haqimizda</a></li>
+				<li><a href="#ooo">Tahririyat</a></li>
+				<li><a href="{% url 'category' slug='siyosat' %}">Siyosat</a></li>
+				<li><a href="{% url 'contact' %}">Aloqa</a></li>
+			</ul>
+			<ul class="kurs">
+				<li>1 USD = {{ dollar }} UZS</li>
+				<li>1 EUR = {{ yevro }} UZS</li>
+				<li>1 RUB = {{ rubl }} UZS</li>
+			</ul>
+
+			<ul class="social">
+				<li><a href="https://www.facebook.com/ramazon.abdurayimov/"><span class="fa fa-facebook-f"></span></a></li>
+				<li><a href="#"><span class="fa fa-twitter"></span></a></li>
+				<li><a href="#"><span class="fa fa-linkedin"></span></a></li>
+				<li><a href="https://t.me/ramazon00abdurayimov"><span class="fa fa-telegram"></span></a></li>
+				<li><a href="#"><span class="fa fa-google-plus"></span></a></li>
+			</ul>
+		</div>
+	</div>
+	<nav class="navbar">
+  	<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
+			</div>
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<i class="fa fa-close"></i>
+				</button>
+				<ul class="nav navbar-nav">
+					{% if ctg_one %}
+
+					{% for i in ctg %}
+					{% if i.active %}
+					{% if ctg_one == i %}
+					<li class="active"><a href="{% url 'category' slug=i.ctg_slug %}">{{ i.name }}</a></li>
+					{% else %}
+					<li><a href="{% url 'category' slug=i.ctg_slug %}">{{ i.name }}</a></li>
+					{% endif %}
+					{% endif %}
+					{% endfor %}
+
+					{% else %}
+
+					{% for i in ctg %}
+					{% if i.active %}
+					<li><a href="{% url 'category' slug=i.ctg_slug %}">{{ i.name }}</a></li>
+					{% endif %}
+					{% endfor %}
+
+					{% endif %}
+
+				</ul>
+				<button type="button" class="btn navbar-right search_btn hidden-xs"><i class="fa fa-search"></i></button>
+				<form action="{% url 'search' %}" method="get" id="search" class="navbar-form navbar-right search_btn_box hidden-xs">
+        <button class="btn btn-default" type="button">
+          <span><i class="fa fa-search"></i></span></button>
+        <div class="input-group">
+          <input type="text" name="q" id="searchName" class="form-control" placeholder="Поиск..." required="">
+          <input type="submit" hidden="">
+        </div>
+        <button type="button" class="btn  search_btn_close hidden-xs active"><i class="fa fa-close"></i></button>
+      </form>
+			</div>
+		</div>
+	</nav>
+	{% if rek %}
+	<a href="{{rek.url}}" class="bigrek"></a>
+    {% else %}
+	<a href="https://itv.uz/#!/" class="bigrek"></a>
+	{% endif %}
+   {% block content %} {% endblock %}
+
+
+    <div class="foot_about" id="footerrr">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 col-xs-12"><img src="{%static 'img/logo.png' %}" alt="" class="logo"></div>
+				<div class="col-md-6 col-xs-12">
+					<div class="title">Biz haqimizda</div>
+					<p>O‘zbekistondagi eng faol onlayn nashrlardan biri. Sayt o‘z oldiga O‘zbekiston va jahonda ro‘y berayotgan eng muhim voqea-hodisalar haqida tezkor, aniq va xolis axborot berishni maqsad qilib qo‘ygan.</p>
+				</div>
+				<div class="col-md-3 col-xs-12 text-right">
+					<ul class="social">
+						<li><a href="https://www.facebook.com/ramazon.abdurayimov/"><span class="fa fa-facebook-f"></span></a></li>
+						<li><a href="#"><span class="fa fa-twitter"></span></a></li>
+						<li><a href="#"><span class="fa fa-linkedin"></span></a></li>
+						<li><a href="https://t.me/ramazon00abdurayimov"><span class="fa fa-telegram"></span></a></li>
+						<li><a href="#"><span class="fa fa-google-plus"></span></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="container">
+			<ul class="menu">
+				<li><a href="#footerrr">Biz haqimizda</a></li>
+				<li><a href="#ooo">Tahririyat</a></li>
+				<li><a href="{% url 'category' slug='siyosat' %}">Siyosat</a></li>
+				<li><a href="{% url 'contact' %}">Aloqa</a></li>
+			</ul>
+			<div class="copyright">
+				© COPYRIGHT 2021 BY <a href="#">md</a>
+			</div>
+		</div>
+	</footer>
+
+
+
+	<script src="{%static 'js/jquery.js'%}"></script>
+	<script src="{%static 'js/bootstrap.min.js'%}"></script>
+	<script src="{%static 'js/main.js'%}"></script>
+
+</body>
+</html>

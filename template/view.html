@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+	{% block content %}
+
+{% block title %}<title>{{ news.title }}</title>{% endblock %}
+	<div class="container wrapper">
+		<div class="longrek"></div>
+		<div class="clearfix"></div>
+		
+		<ol class="breadcrumb">
+			<li><a href="{% url 'home' %}">BOSH SAHIFA</a></li>
+			<li><a href="{% url 'category' slug=news.ctg.ctg_slug %}">{{ news.ctg }}</a></li>
+			<li class="active">{{ news.title }}</li>
+		</ol>
+		<div class="row">
+			<div class="col-md-8 col-xs-12">
+				<div class="view_img"><img src="{{news.image_1.url}}" alt=""></div>
+				<div class="news_box view">
+					<div class="view_title">{{ news.title }}</div>
+					<span class="date">{{ news.time | date:'Y-m-d H:i'}}</span>
+					<span class="news_type"><i class="fa fa-pencil"></i> {{ news.ctg }}</span>
+					<div class="view_desc">
+					<p><strong>{{a | safe }}</strong></p></p>
+					{% if news.image_2 %}
+					<div id="bigfav" class="carousel slide view_slide" data-ride="carousel">
+						<div class="carousel-inner" role="listbox">
+							<div class="item active">
+								<img src="{{news.image_2.url}}" alt="...">
+							</div>
+							{% if news.image_3 %}
+							<div class="item">
+								<img src="{{news.image_3.url}}" alt="...">
+							</div>
+							{% endif %}
+						</div>
+						<div class="control">
+						<a class="left carousel-control" href="#bigfav" role="button" data-slide="prev">
+							<i class="fa fa-angle-left"></i>
+						</a>
+						<a class="right carousel-control" href="#bigfav" role="button" data-slide="next">
+							<i class="fa fa-angle-right"></i>
+						</a>
+						</div>
+					</div>
+					{% endif %}
+					<p>{{ b | safe}}</p>
+
+				</div>
+
+				</div>
+			</div>
+				<div class="col-md-4 col-xs-12">
+					<div class="head_title">Dolzarb yangilikar</div>
+					<div id="listnews" class="carousel slide listnews" data-ride="carousel">
+						<div class="news_box">
+							<div class="carousel-inner" role="listbox">
+								<div class="item active">
+									<ul class="list_news">
+										{% for i in actual %}
+										{% if forloop.counter < 5 %}
+										<li>
+											<div class="list_img"><img src="{{i.image_1.url}}" alt=""></div>
+											<a href="{% url 'news' pk=i.id %}">{{i.title}}</a>
+											<span class="date">{{i.time | date:'Y-m-d H:i'}}</span>
+											<span class="news_type"><i class="fa fa-pencil"></i> {{i.ctg}}</span>
+										</li>
+										{% endif %}
+										{% endfor %}
+									</ul>
+								</div>
+								<div class="item">
+									<ul class="list_news">
+										{% for i in actual1 %}
+										{% if forloop.counter < 5 %}
+										<li>
+											<div class="list_img"><img src="{{i.image_1.url}}" alt=""></div>
+											<a href="{% url 'news' pk=i.id %}">{{i.title}}</a>
+											<span class="date">{{i.time | date:'Y-m-d H:i'}}</span>
+											<span class="news_type"><i class="fa fa-pencil"></i> {{i.ctg}}</span>
+										</li>
+										{% endif %}
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="indi_box">
+							<ol class="carousel-indicators">
+								<li data-target="#listnews" data-slide-to="0" class="active"></li>
+								<li data-target="#listnews" data-slide-to="1"></li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	{% endblock %}

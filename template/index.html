@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+	{% block content %}
+{% block title %}<title>1news.uz</title>{% endblock %}
+    <div class="container wrapper">
+		<div class="longrek"></div>
+		<div class="l_news">
+			<div class="title">Dolzarb</div>
+			<div class="l_news_box">
+				<div id="littlenews" class="carousel slide" data-ride="carousel">
+					<div class="carousel-inner" role="listbox">
+						{% for i in actual %}
+						{% if forloop.first %}
+						<div class="item active">
+							<a href="{% url 'news' pk=i.id %}">{{i.title}}</a>
+						</div>
+						{% endif %}
+						{% endfor %}
+						{% for i in actual %}
+						{% if not forloop.first and forloop.counter < 9 %}
+						<div class="item">
+							<a href="{% url 'news' pk=i.id %}">{{i.title}}</a>
+						</div>
+						{% endif %}
+						{% endfor %}
+					</div>
+
+					<a class="left carousel-control" href="#littlenews" role="button" data-slide="prev">
+						<i class="fa fa-angle-left"></i>
+					</a>
+					<a class="right carousel-control" href="#littlenews" role="button" data-slide="next">
+						<i class="fa fa-angle-right"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="fav_news">
+			<div class="big_fav">
+				<div id="bigfav" class="carousel slide" data-ride="carousel">
+					<div class="carousel-inner" role="listbox">
+						<div class="item active">
+
+                            {% if main %}
+							<img src="{{ main.image_1.url }}" alt="...">
+								<a href="{% url 'news' pk=main.id %}">
+									<div class="carousel-caption">
+										<div class="caption_pos">
+											<div class="type_news">{{main.ctg}}</div>
+											<div class="title">{{main.title}}</div>
+											<span class="date">{{main.time | date:'Y-m-d H:i'}}</span>
+										</div>
+									</div>
+								</a>
+                             {% endif %}
+						</div>
+						
+					</div>
+					<div class="control">
+
+					</div>
+				</div>
+			</div>
+			<div class="list_fav">
+				<div class="title"><b>So`ngi </b> yangiliklar</div>
+				<ul>{% for i in news %}
+					{% if forloop.counter < 4 %}
+					<li>
+						<a href="{% url 'news' pk=i.id %}">
+							<div class="list_fimg">
+								<img src="{{i.image_1.url}}" alt="">
+							</div>
+							<span class="list_type">{{i.ctg}}</span>
+							<span class="list_title">{{i.title}}</span>
+							<span class="date">{{i.time | date:'Y-m-d H:i'}}</span>
+						</a>
+					</li>
+					{% endif %}
+					{% endfor %}
+				</ul>
+				<a href="{% url 'all_news' %}" class="more">ko`proq</a>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="head_title">MOLIYA</div>
+		<div class="popular">
+			<div class="row">
+				{% for i in moliya %}
+				{% if forloop.counter < 5 %}
+				<div class="col-md-3 col-xs-12">
+
+					<div class="p_img"><img src="{{i.image_1.url}}" alt=""></div>
+					<a href="{% url 'news' pk=i.id %}">{{i.title}}</a>
+					<span class="date">{{i.time | date:'Y-m-d H:i'}}</span>
+					<span class="p_type"><i class="fa fa-pencil"></i> {{i.ctg}}</span>
+
+				</div>
+				{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+		<a href="{% url 'category' slug='moliya' %}" class="big_more">ko`proq</a>
+
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-xs-12">
+				<div class="head_title">siyosat</div>
+				<div class="news_box">
+					<div class="row">
+						<div class="col-md-6 col-xs-12">
+							<div class="big_news">
+								{% for i in siyosat %}
+								{% if forloop.first %}
+								<div class="big_n_img"><img src="{{i.image_1.url}}" alt=""></div>
+								<a href="{% url 'news' pk=i.id %}">{{i.title}}</a>
+								<span class="date">{{i.time | date:'Y-m-d H:i'}}</span>
+								<span class="news_type"><i class="fa fa-pencil"></i> {{i.ctg}}</span>
+								<div class="desc"> {{ i.text | slice:120 | safe }}...</div>
+							    {% endif %}
+								{% endfor %}
+							</div>
+						</div>
+						<div class="col-md-6 col-xs-12">
+							<ul class="list_news">
+								{% for i in siyosat %}
+								{% if not forloop.first and forloop.counter < 6 %}
+								<li>
+									<div class="list_img"><img src="{{i.image_1.url}}" alt=""></div>
+									<a href="{% url 'news' pk=i.id %}">{{i.title}}</a>
+									<span class="date">{{i.time | date:'Y-m-d H:i'}}</span>
+									<span class="news_type"><i class="fa fa-pencil"></i> {{i.ctg}}</span>
+								</li>
+								{% endif %}
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+				</div>
+				<a href="{% url 'category' slug='siyosat' %}" class="big_more">KO`PROQ</a>
+				<div class="head_title">sport</div>
+				<div class="news_box">
+					<div class="row">
+						<div class="col-md-6 col-xs-12">
+							<div class="big_news">
+								{% for i in sport %}
+								{% if forloop.first %}
+								<div class="big_n_img"><img src="{{i.image_1.url}}" alt=""></div>
+								<a href="{% url 'news' pk=i.id %}">{{i.title}}</a>
+								<span class="date">{{i.time | date:'Y-m-d H:i'}}</span>
+								<span class="news_type"><i class="fa fa-pencil"></i> {{i.ctg}}</span>
+								<div class="desc"> {{ i.text | slice:120 | safe }}...</div>
+							    {% endif %}
+								{% endfor %}
+							</div>
+						</div>
+						<div class="col-md-6 col-xs-12">
+							<ul class="list_news">
+								{% for i in sport %}
+								{% if not forloop.first and forloop.counter < 6 %}
+								<li>
+									<div class="list_img"><img src="{{i.image_1.url}}" alt=""></div>
+									<a href="{% url 'news' pk=i.id %}">{{i.title}}</a>
+									<span class="date">{{i.time | date:'Y-m-d H:i'}}</span>
+									<span class="news_type"><i class="fa fa-pencil"></i> {{i.ctg}}</span>
+								</li>
+								{% endif %}
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+				</div>
+				<a href="{% url 'category' slug='sport' %}" class="big_more">KO`PROQ</a>
+			</div>
+			<div class="col-md-4 col-xs-12">
+				<div class="head_title">Dolzarb yangilikar</div>
+				<div id="listnews" class="carousel slide listnews" data-ride="carousel">
+					<div class="news_box">
+						<div class="carousel-inner" role="listbox">
+							<div class="item active">
+								<ul class="list_news">
+									{% for i in actual %}
+									{% if forloop.counter < 5 %}
+									<li>
+										<div class="list_img"><img src="{{i.image_1.url}}" alt=""></div>
+										<a href="{% url 'news' pk=i.id %}">{{i.title}}</a>
+										<span class="date">{{i.time | date:'Y-m-d H:i'}}</span>
+										<span class="news_type"><i class="fa fa-pencil"></i> {{i.ctg}}</span>
+									</li>
+									{% endif %}
+									{% endfor %}
+								</ul>
+							</div>
+							<div class="item">
+								<ul class="list_news">
+									{% for i in actual1 %}
+									{% if forloop.counter < 5 %}
+									<li>
+										<div class="list_img"><img src="{{i.image_1.url}}" alt=""></div>
+										<a href="{% url 'news' pk=i.id %}">{{i.title}}</a>
+										<span class="date">{{i.time | date:'Y-m-d H:i'}}</span>
+										<span class="news_type"><i class="fa fa-pencil"></i> {{i.ctg}}</span>
+									</li>
+									{% endif %}
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="indi_box">
+						<ol class="carousel-indicators">
+							<li data-target="#listnews" data-slide-to="0" class="active"></li>
+							<li data-target="#listnews" data-slide-to="1"></li>
+						</ol>
+					</div>
+				</div>
+				
+				<div class="head_title colum" id="ooo">TAHRIRIYAT</div>
+				
+					<div class="news_box colums">
+
+								<ul class="list_news">
+									<li>
+										<div class="list_img"><img src="../static/img/photo1.jpg" alt=""></div>
+										<a href="#">Abdurayimov Ramazon</a>
+										<div class="col_type">Python Web Developer</div>
+									</li>
+									<li>
+										<div class="list_img"><img src="https://storage.kun.uz/source/4/NLhgyKIJe-ZBHJeLE9zCO0_gTUT_5GtZ.jpg" alt=""></div>
+										<a href="#">Niyozov Jamshid</a>
+										<div class="col_type">Muxbir</div>
+									</li>
+									<li>
+										<div class="list_img"><img src="https://storage.kun.uz/source/6/9zDd4DzVxfy1U0cSoZMtRr2M0yrx8Sc1.jpg" alt=""></div>
+										<a href="#">Toshniyazova Gulmira</a>
+										<div class="col_type">Muxbir</div>
+									</li>
+									<li>
+										<div class="list_img"><img src="https://storage.kun.uz/source/4/HCn9CIQeTuHESm0tenP2MkJWdU1YSiD6.jpg" alt=""></div>
+										<a href="#">Qarshiyev Aziz</a>
+										<div class="col_type">Muharrir</div>
+									</li>
+									<li>
+										<div class="list_img"><img src="https://storage.kun.uz/source/4/p29XXXLMQOQzxOZ6MgDMDEb4TMs5Nqh1.jpg" alt=""></div>
+										<a href="#">G`aniyev Muhammadjon</a>
+										<div class="col_type">Tasvirchi</div>
+									</li>
+								</ul>
+
+					</div>
+				
+			</div>
+		</div>
+	</div>
+	<div class="culture">
+		<div class="container">
+			<div class="title">JAHON</div>
+			<div id="culture" class="carousel slide" data-ride="carousel">
+
+				<div class="carousel-inner" role="listbox">
+					<div class="item active">
+						{% for i in jahon %}
+						{% if forloop.first %}
+						<div class="big_cult">
+							<img src="{{i.image_1.url}}" alt="">
+							<a href="{% url 'news' pk=i.id %}">
+								<div class="caption">{{i.title}}</div>
+							</a>
+						</div>
+						{% endif %}
+						{% endfor %}
+						{% for i in jahon %}
+						{% if not forloop.first and forloop.counter < 6 %}
+						<div class="little_cult">
+							<img src="{{i.image_1.url}}" alt="">
+							<a href="{% url 'news' pk=i.id %}">
+								<div class="caption">{{i.title}}</div>
+							</a>
+						</div>
+						{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+			<a href="{% url 'category' slug='jahon' %}" class="more">ko`proq</a>
+		</div>
+	</div>
+ {% endblock %}

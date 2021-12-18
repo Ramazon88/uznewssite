@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+	{% block content %}
+{% load static %}
+{% block title %}<title>ALOQA</title>{% endblock %}
+	<div class="container wrapper">
+		<div class="longrek"></div>
+		<div class="clearfix"></div>
+		
+		<ol class="breadcrumb">
+			<li><a href="{% url 'home' %}'">BOSH SAHIFA</a></li>
+			<li class="active">ALOQA</li>
+		</ol>
+		<div class="row">
+			<div class="col-md-5 col-xs-12">
+				<div class="cat_title">Aloqa</div>
+				<div class="con_info">1newsuz internet-nashri O‘zbekistonning ijtimoiy-siyosiy, sotsial-iqtisodiy, madaniy, sport hayoti, jahonda ro‘y berayotgan voqealarni yoritib boradi.</div>
+				<ul class="contact">
+					<li><i class="fa fa-map-marker"></i>Toshkent shaxri Bunyodkor ko`chasi 18-uy</li>
+					<li><i class="fa fa-mobile"></i> +99899 438-08-07</li>
+					<li><i class="fa fa-envelope"></i>abdurayimovramazon@gmail.com</li>
+				</ul>
+				<div class="feedback">
+					<div class="title">Biz bilan bog`laning</div>
+					{% if saved %}
+					<div class="title">{{saved}} ma`lumotlaringiz ma`muriyatga yuborildi</div>
+					{% endif %}
+					<form action="{% url 'contact' %}" method="post">{% csrf_token %}
+						<input type="text" name="first_name" placeholder="Ismingiz" required>
+						<input type="number" name="phone_number" placeholder="Telefon raqamingiz" required>
+						<input type="email" name="email" placeholder="Elektron pochtangiz" required>
+						<textarea name="text" id="" cols="30" rows="10" placeholder="Xabar"></textarea>
+						<button class="btn submit">Yuborish</button>
+					</form>
+				</div>
+			</div>
+			<div class="col-md-7 col-xs-12">
+				<div class="con_img">
+					<img src="{% static 'img/contact.jpg' %}" alt="">
+				</div>
+				<div class="map"></div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
